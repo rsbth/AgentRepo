@@ -126,20 +126,65 @@
  */
 
 package se.sics.tac.aw;
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.regions.Region;
+import com.amazonaws.regions.Regions;
 import se.sics.tac.util.ArgEnumerator;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.*;
+//import com.mongodb.*;
+//import java.util.Arrays;
+import com.amazonaws.services.machinelearning.AmazonMachineLearningClient;
+import com.amazonaws.services.machinelearning.model.PredictRequest;
+import com.amazonaws.services.machinelearning.model.PredictResult;
+import org.json.JSONObject;
 
 public class DummyAgent extends AgentImpl {
 
-  private static final Logger log =
+    private String mlModelId = "ml-blrTMoNZrTW";
+    private AmazonMachineLearningClient client;
+    private JSONObject resultExtractor;
+    private PredictRequest request;
+    private PredictResult result;
+
+    String resJSON;
+    JSONObject VO_Price;
+    private String predictEndpoint ="https://realtime.machinelearning.eu-west-1.amazonaws.com";
+    public DummyAgent(String mlModelId){
+        AWSCredentials credentials = new AWSCredentials() {
+            public String getAWSAccessKeyId() {
+                return "AKIAIF67MFOWCNDHLORA";
+            }
+
+            public String getAWSSecretKey() {
+                return "ZxDa6mXzWMDdcpI+fu51AGDGTKfTvE4aqj3Ssq+2";
+            }
+        };
+        client = new AmazonMachineLearningClient(credentials);
+        client.setEndpoint(predictEndpoint);
+        client.setRegion(Region.getRegion(Regions.EU_WEST_1));
+        this.mlModelId = mlModelId;
+    }
+
+    private double avg_ent_Client_pref = 0;
+    /*static MongoCredential credential = MongoCredential.createCredential("scott","tacLog","tiger".toCharArray());
+    static MongoClient mongoclient = new MongoClient(new ServerAddress("127.0.0.1",27017), Arrays.asList(credential));
+    static DB db = mongoclient.getDB("tacLog");
+    static DBCollection collection  = db.getCollection("infoj"); */
+
+    private static final Logger log =
     Logger.getLogger(DummyAgent.class.getName());
 
   private static final boolean DEBUG = false;
 
   private float[] prices;
+  private float hotelPref;
 
   protected void init(ArgEnumerator args) {
     prices = new float[agent.getAuctionNo()];
+    hotelPref = 0;
   }
 
   public void quoteUpdated(Quote quote) {
@@ -221,17 +266,34 @@ public class DummyAgent extends AgentImpl {
   private void sendBids() {
     for (int i = 0, n = agent.getAuctionNo(); i < n; i++) {
       int alloc = agent.getAllocation(i) - agent.getOwn(i);
-      float price = -1f;
+        double time_left_for_completion = agent.getGameTimeLeft();
+        float price = -1f;
       switch (agent.getAuctionCategory(i)) {
       case TACAgent.CAT_FLIGHT:
-	if (alloc > 0) {
-	  price = 1000;
+          Map<String, String> record = new HashMap<String, String>();
+          record.put("Time", time_left_for_completion + "");
+          record.put("Type","Flight");
+          request= new PredictRequest().withMLModelId(mlModelId).withPredictEndpoint(predictEndpoint).withRecord(record);
+          result = client.predict(request);
+          resultExtractor = new JSONObject(result);
+          resJSON = resultExtractor.get("prediction").toString();
+          VO_Price = new JSONObject(resJSON);
+          if (alloc > 0) {
+              price = (float)VO_Price.getDouble("predictedValue");
 	}
 	break;
       case TACAgent.CAT_HOTEL:
+          Map<String, String> record2 = new HashMap<String, String>();
+          record2.put("Time", time_left_for_completion + "");
+          record2.put("Type","Hotel");
+          request = new PredictRequest().withMLModelId(mlModelId).withPredictEndpoint(predictEndpoint).withRecord(record2);
+          result = client.predict(request);
+          resultExtractor = new JSONObject(result);
+          resJSON = resultExtractor.get("prediction").toString();
+          VO_Price = new JSONObject(resJSON);
 	if (alloc > 0) {
-	  price = 200;
-	  prices[i] = 200f;
+        price = (float)VO_Price.getDouble("predictedValue");
+        prices[i] = price;
 	}
 	break;
       case TACAgent.CAT_ENTERTAINMENT:
@@ -276,11 +338,20 @@ public class DummyAgent extends AgentImpl {
 
       // if the hotel value is greater than 70 we will select the
       // expensive hotel (type = 1)
-      if (hotel > 70) {
-	type = TACAgent.TYPE_GOOD_HOTEL;
-      } else {
-	type = TACAgent.TYPE_CHEAP_HOTEL;
-      }
+        int pref = 0;
+        float avg = 0;
+        int j = 0;
+        while (j < 8) {
+            int clintPref = agent.getClientPreference(i, TACAgent.HOTEL_VALUE);
+            pref += clintPref;
+            j++;
+        }
+        avg = pref / 8;
+        if (hotel > avg) {
+            type = TACAgent.TYPE_GOOD_HOTEL;
+        } else {
+            type = TACAgent.TYPE_CHEAP_HOTEL;
+        }
       // allocate a hotel night for each day that the agent stays
       for (int d = inFlight; d < outFlight; d++) {
 	auction = agent.getAuctionFor(TACAgent.CAT_HOTEL, type, d);
@@ -316,13 +387,25 @@ public class DummyAgent extends AgentImpl {
     int e3 = agent.getClientPreference(client, TACAgent.E3);
 
     // At least buy what each agent wants the most!!!
-    if ((e1 > e2) && (e1 > e3) && lastType == -1)
-      return TACAgent.TYPE_ALLIGATOR_WRESTLING;
-    if ((e2 > e1) && (e2 > e3) && lastType == -1)
-      return TACAgent.TYPE_AMUSEMENT;
-    if ((e3 > e1) && (e3 > e2) && lastType == -1)
-      return TACAgent.TYPE_MUSEUM;
-    return -1;
+      if ((e1 > e2) && (e1 > e3) && lastType == -1)
+          return TACAgent.TYPE_ALLIGATOR_WRESTLING;
+      else if ((e1 < e2) && (e1 > e3))
+          return TACAgent.TYPE_MUSEUM;
+      else if ((e1 < e2) && (e1 < e3))
+          return TACAgent.TYPE_ALLIGATOR_WRESTLING;
+      if ((e2 > e1) && (e2 > e3) && lastType == -1)
+          return TACAgent.TYPE_AMUSEMENT;
+      else if ((e2 < e1) && (e2 > e3))
+          return TACAgent.TYPE_AMUSEMENT;
+      else if ((e2 < e1) && (e2 < e3))
+          return TACAgent.TYPE_MUSEUM;
+      if ((e3 > e1) && (e3 > e2) && lastType == -1)
+          return TACAgent.TYPE_MUSEUM;
+      else if ((e3 < e1) && (e3 > e2))
+          return TACAgent.TYPE_ALLIGATOR_WRESTLING;
+      else if ((e3 > e1) && (e3 < e2))
+          return TACAgent.TYPE_AMUSEMENT;
+      return -1;
   }
 
 
