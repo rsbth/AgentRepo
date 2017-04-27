@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2017-04-27T20:14:54</date>
+  <millis>1493316894022</millis>
+  <sequence>0</sequence>
+  <logger>se.sics.tac.aw.TACAgent</logger>
+  <level>FINE</level>
+  <class>se.sics.tac.aw.TACAgent</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>Starting TAC AgentWare version Beta 9</message>
+</record>
+<record>
+  <date>2017-04-27T20:14:54</date>
+  <millis>1493316894024</millis>
+  <sequence>1</sequence>
+  <logger>se.sics.tac.aw.TACAgent</logger>
+  <level>FINE</level>
+  <class>se.sics.tac.aw.TACAgent</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>Using agent implementation se.sics.tac.aw.DummyAgent</message>
+</record>
+<record>
+  <date>2017-04-27T20:14:54</date>
+  <millis>1493316894024</millis>
+  <sequence>2</sequence>
+  <logger>se.sics.tac.aw.TACAgent</logger>
+  <level>FINE</level>
+  <class>se.sics.tac.aw.TACAgent</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>Using TAC server localhost at port 6500</message>
+</record>
+<record>
+  <date>2017-04-27T20:14:54</date>
+  <millis>1493316894030</millis>
+  <sequence>3</sequence>
+  <logger>se.sics.tac.aw.TACReader</logger>
+  <level>FINE</level>
+  <class>se.sics.tac.aw.TACReader</class>
+  <method>doConnect</method>
+  <thread>1</thread>
+  <message>Connecting to server localhost:6500</message>
+</record>
+<record>
+  <date>2017-04-27T20:14:54</date>
+  <millis>1493316894034</millis>
+  <sequence>4</sequence>
+  <logger>se.sics.tac.aw.TACReader</logger>
+  <level>SEVERE</level>
+  <class>se.sics.tac.aw.TACReader</class>
+  <method>doConnect</method>
+  <thread>1</thread>
+  <message>connection to server failed:</message>
+  <exception>
+    <message>java.net.ConnectException: Connection refused (Connection refused)</message>
+    <frame>
+      <class>java.net.PlainSocketImpl</class>
+      <method>socketConnect</method>
+    </frame>
+    <frame>
+      <class>java.net.AbstractPlainSocketImpl</class>
+      <method>doConnect</method>
+      <line>350</line>
+    </frame>
+    <frame>
+      <class>java.net.AbstractPlainSocketImpl</class>
+      <method>connectToAddress</method>
+      <line>206</line>
+    </frame>
+    <frame>
+      <class>java.net.AbstractPlainSocketImpl</class>
+      <method>connect</method>
+      <line>188</line>
+    </frame>
+    <frame>
+      <class>java.net.SocksSocketImpl</class>
+      <method>connect</method>
+      <line>392</line>
+    </frame>
+    <frame>
+      <class>java.net.Socket</class>
+      <method>connect</method>
+      <line>589</line>
+    </frame>
+    <frame>
+      <class>java.net.Socket</class>
+      <method>connect</method>
+      <line>538</line>
+    </frame>
+    <frame>
+      <class>java.net.Socket</class>
+      <method>&lt;init&gt;</method>
+      <line>434</line>
+    </frame>
+    <frame>
+      <class>java.net.Socket</class>
+      <method>&lt;init&gt;</method>
+      <line>211</line>
+    </frame>
+    <frame>
+      <class>se.sics.tac.aw.TACReader</class>
+      <method>doConnect</method>
+      <line>124</line>
+    </frame>
+    <frame>
+      <class>se.sics.tac.aw.TACReader</class>
+      <method>init</method>
+      <line>49</line>
+    </frame>
+    <frame>
+      <class>se.sics.tac.aw.TACConnection</class>
+      <method>init</method>
+      <line>35</line>
+    </frame>
+    <frame>
+      <class>se.sics.tac.aw.TACAgent</class>
+      <method>connect</method>
+      <line>394</line>
+    </frame>
+    <frame>
+      <class>se.sics.tac.aw.TACAgent</class>
+      <method>&lt;init&gt;</method>
+      <line>341</line>
+    </frame>
+    <frame>
+      <class>se.sics.tac.aw.TACAgent</class>
+      <method>main</method>
+      <line>2176</line>
+    </frame>
+    <frame>
+      <class>se.sics.tac.aw.DummyAgent</class>
+      <method>main</method>
+      <line>335</line>
+    </frame>
+  </exception>
+</record>
+<record>
+  <date>2017-04-27T20:14:54</date>
+  <millis>1493316894035</millis>
+  <sequence>5</sequence>
+  <logger>se.sics.tac.aw.TACAgent</logger>
+  <level>WARNING</level>
+  <class>se.sics.tac.aw.TACAgent</class>
+  <method>connect</method>
+  <thread>1</thread>
+  <message>could not connect to server localhost at port 6500 (will retry in 5 seconds)</message>
+</record>
+<record>
+  <date>2017-04-27T20:14:59</date>
+  <millis>1493316899037</millis>
+  <sequence>6</sequence>
+  <logger>se.sics.tac.aw.TACReader</logger>
+  <level>FINE</level>
+  <class>se.sics.tac.aw.TACReader</class>
+  <method>doConnect</method>
+  <thread>1</thread>
+  <message>Connecting to server localhost:6500</message>
+</record>
+<record>
+  <date>2017-04-27T20:14:59</date>
+  <millis>1493316899038</millis>
+  <sequence>7</sequence>
+  <logger>se.sics.tac.aw.TACReader</logger>
+  <level>SEVERE</level>
+  <class>se.sics.tac.aw.TACReader</class>
+  <method>doConnect</method>
+  <thread>1</thread>
+  <message>connection to server failed:</message>
+  <exception>
+    <message>java.net.ConnectException: Connection refused (Connection refused)</message>
+    <frame>
+      <class>java.net.PlainSocketImpl</class>
+      <method>socketConnect</method>
+    </frame>
+    <frame>
+      <class>java.net.AbstractPlainSocketImpl</class>
+      <method>doConnect</method>
+      <line>350</line>
+    </frame>
+    <frame>
+      <class>java.net.AbstractPlainSocketImpl</class>
+      <method>connectToAddress</method>
+      <line>206</line>
+    </frame>
+    <frame>
+      <class>java.net.AbstractPlainSocketImpl</class>
+      <method>connect</method>
+      <line>188</line>
+    </frame>
+    <frame>
+      <class>java.net.SocksSocketImpl</class>
+      <method>connect</method>
+      <line>392</line>
+    </frame>
+    <frame>
+      <class>java.net.Socket</class>
+      <method>connect</method>
+      <line>589</line>
+    </frame>
+    <frame>
+      <class>java.net.Socket</class>
+      <method>connect</method>
+      <line>538</line>
+    </frame>
+    <frame>
+      <class>java.net.Socket</class>
+      <method>&lt;init&gt;</method>
+      <line>434</line>
+    </frame>
+    <frame>
+      <class>java.net.Socket</class>
+      <method>&lt;init&gt;</method>
+      <line>211</line>
+    </frame>
+    <frame>
+      <class>se.sics.tac.aw.TACReader</class>
+      <method>doConnect</method>
+      <line>124</line>
+    </frame>
+    <frame>
+      <class>se.sics.tac.aw.TACReader</class>
+      <method>init</method>
+      <line>49</line>
+    </frame>
+    <frame>
+      <class>se.sics.tac.aw.TACConnection</class>
+      <method>init</method>
+      <line>35</line>
+    </frame>
+    <frame>
+      <class>se.sics.tac.aw.TACAgent</class>
+      <method>connect</method>
+      <line>394</line>
+    </frame>
+    <frame>
+      <class>se.sics.tac.aw.TACAgent</class>
+      <method>&lt;init&gt;</method>
+      <line>341</line>
+    </frame>
+    <frame>
+      <class>se.sics.tac.aw.TACAgent</class>
+      <method>main</method>
+      <line>2176</line>
+    </frame>
+    <frame>
+      <class>se.sics.tac.aw.DummyAgent</class>
+      <method>main</method>
+      <line>335</line>
+    </frame>
+  </exception>
+</record>
+<record>
+  <date>2017-04-27T20:14:59</date>
+  <millis>1493316899039</millis>
+  <sequence>8</sequence>
+  <logger>se.sics.tac.aw.TACAgent</logger>
+  <level>WARNING</level>
+  <class>se.sics.tac.aw.TACAgent</class>
+  <method>connect</method>
+  <thread>1</thread>
+  <message>could not connect to server localhost at port 6500 (will retry in 5 seconds)</message>
+</record>
+<record>
+  <date>2017-04-27T20:15:04</date>
+  <millis>1493316904041</millis>
+  <sequence>9</sequence>
+  <logger>se.sics.tac.aw.TACReader</logger>
+  <level>FINE</level>
+  <class>se.sics.tac.aw.TACReader</class>
+  <method>doConnect</method>
+  <thread>1</thread>
+  <message>Connecting to server localhost:6500</message>
+</record>
+<record>
+  <date>2017-04-27T20:15:04</date>
+  <millis>1493316904042</millis>
+  <sequence>10</sequence>
+  <logger>se.sics.tac.aw.TACReader</logger>
+  <level>SEVERE</level>
+  <class>se.sics.tac.aw.TACReader</class>
+  <method>doConnect</method>
+  <thread>1</thread>
+  <message>connection to server failed:</message>
+  <exception>
+    <message>java.net.ConnectException: Connection refused (Connection refused)</message>
+    <frame>
+      <class>java.net.PlainSocketImpl</class>
+      <method>socketConnect</method>
+    </frame>
+    <frame>
+      <class>java.net.AbstractPlainSocketImpl</class>
+      <method>doConnect</method>
+      <line>350</line>
+    </frame>
+    <frame>
+      <class>java.net.AbstractPlainSocketImpl</class>
+      <method>connectToAddress</method>
+      <line>206</line>
+    </frame>
+    <frame>
+      <class>java.net.AbstractPlainSocketImpl</class>
+      <method>connect</method>
+      <line>188</line>
+    </frame>
+    <frame>
+      <class>java.net.SocksSocketImpl</class>
+      <method>connect</method>
+      <line>392</line>
+    </frame>
+    <frame>
+      <class>java.net.Socket</class>
+      <method>connect</method>
+      <line>589</line>
+    </frame>
+    <frame>
+      <class>java.net.Socket</class>
+      <method>connect</method>
+      <line>538</line>
+    </frame>
+    <frame>
+      <class>java.net.Socket</class>
+      <method>&lt;init&gt;</method>
+      <line>434</line>
+    </frame>
+    <frame>
+      <class>java.net.Socket</class>
+      <method>&lt;init&gt;</method>
+      <line>211</line>
+    </frame>
+    <frame>
+      <class>se.sics.tac.aw.TACReader</class>
+      <method>doConnect</method>
+      <line>124</line>
+    </frame>
+    <frame>
+      <class>se.sics.tac.aw.TACReader</class>
+      <method>init</method>
+      <line>49</line>
+    </frame>
+    <frame>
+      <class>se.sics.tac.aw.TACConnection</class>
+      <method>init</method>
+      <line>35</line>
+    </frame>
+    <frame>
+      <class>se.sics.tac.aw.TACAgent</class>
+      <method>connect</method>
+      <line>394</line>
+    </frame>
+    <frame>
+      <class>se.sics.tac.aw.TACAgent</class>
+      <method>&lt;init&gt;</method>
+      <line>341</line>
+    </frame>
+    <frame>
+      <class>se.sics.tac.aw.TACAgent</class>
+      <method>main</method>
+      <line>2176</line>
+    </frame>
+    <frame>
+      <class>se.sics.tac.aw.DummyAgent</class>
+      <method>main</method>
+      <line>335</line>
+    </frame>
+  </exception>
+</record>
+<record>
+  <date>2017-04-27T20:15:04</date>
+  <millis>1493316904043</millis>
+  <sequence>11</sequence>
+  <logger>se.sics.tac.aw.TACAgent</logger>
+  <level>WARNING</level>
+  <class>se.sics.tac.aw.TACAgent</class>
+  <method>connect</method>
+  <thread>1</thread>
+  <message>could not connect to server localhost at port 6500 (will retry in 5 seconds)</message>
+</record>
+</log>
